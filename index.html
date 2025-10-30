@@ -3,14 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Конструктор Бизнес-Моделей</title>
-    <!-- Подключение Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
-    <!-- Подключение Google Fonts для более серьезного вида --><link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+    <title>Конструктор Бизнес-Моделей (Расширенный Анализ)</title>
+    
+
+<script src="https://cdn.tailwindcss.com"></script>
+    
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
     <style>
         /* Стиль для активного перетаскивания */
         .drag-over {
-            border: 3px dashed #3B82F6; /* Blue-500 */
-            background-color: #EFF6FF; /* Blue-50 */
+            border: 3px dashed #10B981; /* Emerald-500 */
+            background-color: #ECFDF5; /* Emerald-50 */
         }
         /* Стили для карточек компонентов */
         .component-card {
@@ -20,19 +24,26 @@
         .component-card:active {
             cursor: grabbing;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            transform: scale(1.03); /* Немного меньше увеличение */
+            transform: scale(1.03);
             z-index: 10;
         }
         .component-icon svg {
-            width: 28px; /* Чуть больше иконки */
+            width: 28px;
             height: 28px;
-            color: #4F46E5; /* Indigo-600 */
+            color: #059669; /* Emerald-600 */
         }
         body {
             font-family: 'Roboto', sans-serif;
         }
         h1, h2, h3 {
             font-family: 'Montserrat', sans-serif;
+        }
+        .insight-box {
+            background-color: #F0F9FF; /* Sky-50 */
+            border-left: 4px solid #0EA5E9; /* Sky-500 */
+        }
+        .category-header {
+            color: #059669; /* Emerald-600 */
         }
     </style>
     <script>
@@ -53,49 +64,61 @@
     <div class="max-w-7xl mx-auto">
         <header class="text-center mb-10">
             <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight font-heading">
-                Интерактивный Конструктор Бизнес-Моделей
+                Интерактивный Конструктор Бизнес-Моделей 2.0
             </h1>
             <p class="text-xl text-gray-700 mt-2">
-                Сформируйте основу вашего будущего предприятия с помощью ключевых компонентов.
+                Сформируйте основу вашего предприятия и получите стратегические выводы.
             </p>
         </header>
 
-        <!-- Основная рабочая область (Flex/Grid Layout) --><div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
 
-            <!-- 1. Исходные Компоненты (Source) --><div class="lg:col-span-1 bg-white p-6 rounded-xl shadow-lg h-full border border-gray-200">
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            
+
+<div class="lg:col-span-1 bg-white p-6 rounded-xl shadow-xl h-full border border-gray-200">
                 <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center font-heading">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-3 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-3 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                     </svg>
                     Доступные Элементы
                 </h2>
                 <div id="component-list" class="space-y-4">
-                    <!-- Компоненты будут добавлены JS --></div>
+                    
+
+</div>
             </div>
 
-            <!-- 2. Зона Выбора (Drop Zone) --><div class="lg:col-span-2 space-y-8">
-                <div id="drop-zone" class="bg-blue-50 border-4 border-dashed border-blue-200 p-8 min-h-[250px] rounded-xl flex flex-col items-center justify-center transition-all">
-                    <p id="drop-placeholder" class="text-gray-500 text-lg text-center">
-                        Перетащите сюда ключевые компоненты для формирования вашей бизнес-модели.
+            
+
+<div class="lg:col-span-2 space-y-8">
+                <div id="drop-zone" class="bg-emerald-50 border-4 border-dashed border-emerald-300 p-8 min-h-[300px] rounded-xl flex flex-col items-center justify-center transition-all shadow-inner">
+                    <p id="drop-placeholder" class="text-gray-500 text-xl text-center font-medium">
+                        Перетащите сюда по одному компоненту из каждой категории (минимум 3) для начала анализа.
                     </p>
-                    <div id="selected-components" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-4 w-full">
-                        <!-- Выбранные компоненты будут здесь --></div>
+                    <div id="selected-components" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-6 w-full">
+                        
+
+</div>
                 </div>
 
-                <!-- 3. Описание Бизнеса (Output) --><div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-blue-600 border border-gray-200">
-                    <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center font-heading">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-3 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                
+
+<div class="bg-white p-8 rounded-xl shadow-xl border-t-4 border-emerald-600 border border-gray-200">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-6 flex items-center font-heading">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-3 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 19V6a2 2 0 012-2h2a2 2 0 012 2v13m-2 0h-2m2 0h2M12 21V3m-2 4h4" />
                         </svg>
-                        Предварительный Анализ Бизнес-Модели
+                        Стратегический Анализ
                     </h2>
-                    <div id="business-description" class="text-gray-700 leading-relaxed text-lg italic">
+                    <div id="business-description" class="text-gray-700 leading-relaxed text-lg italic space-y-4">
                         <p class="text-gray-500">
-                            Здесь будет представлено описание вашего бизнеса на основе выбранных компонентов.
+                            Здесь будет представлен подробный анализ и неочевидные выводы, основанные на комбинации выбранных компонентов.
                         </p>
                     </div>
-                    <button id="reset-button" class="mt-8 w-full py-3 px-4 bg-red-600 text-white font-semibold rounded-lg shadow-md hover:bg-red-700 transition duration-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-75 text-lg">
-                        Очистить все компоненты
+                    <button id="reset-button" class="mt-10 w-full py-3 px-4 bg-red-600 text-white font-semibold rounded-lg shadow-lg hover:bg-red-700 transition duration-200 focus:outline-none focus:ring-4 focus:ring-red-500 focus:ring-opacity-50 text-lg">
+                        Очистить и начать заново
                     </button>
                 </div>
             </div>
@@ -104,26 +127,46 @@
     </div>
 
     <script>
+        // Использование Heroicons (24x24)
+        const ICONS = {
+            Cube: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>',
+            Users: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20v-2a3 3 0 015.356-1.857M7 20h4m-4 0v-2c0-.656-.126-1.283-.356-1.857M18 12a3 3 0 10-2-3.857M12 2a3 3 0 00-3 3v2a3 3 0 003 3h2a3 3 0 003-3V5a3 3 0 00-3-3M7 10a3 3 0 10-2-3.857"/></svg>',
+            Currency: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>',
+            Megaphone: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>',
+            Cog: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>',
+        };
+        
         const COMPONENTS = {
             'product': [
-                { id: 'P1', name: 'SaaS (Программное Обеспечение как Услуга)', category: 'Продукт', icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1l-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>', snippet: 'Ваш бизнес сосредоточен на разработке и предоставлении программного обеспечения как услуги (SaaS). Вы предлагаете цифровой продукт с регулярными обновлениями и поддержкой.' },
-                { id: 'P2', name: 'Физические Товары (Электронная Коммерция)', category: 'Продукт', icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>', snippet: 'Вы занимаетесь продажей физических товаров через платформы электронной коммерции. Это может быть как собственный бренд, так и дистрибуция.' },
-                { id: 'P3', name: 'Профессиональные Услуги (Консалтинг, Обучение)', category: 'Продукт', icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.564 23.564 0 0112 15c-3.797 0-7.578-.83-11.373-2.745L2 9V6a2 2 0 012-2h16a2 2 0 012 2v3l-.627 4.255zM6 16.5A3.5 3.5 0 019.5 13h5A3.5 3.5 0 0118 16.5v3.255A23.564 23.564 0 0112 22a23.564 23.564 0 01-6-2.245V16.5z"/></svg>', snippet: 'Ваш продукт — это экспертные знания и навыки, предоставляемые в форме консалтинга, образовательных программ или специализированных услуг.' }
+                { id: 'P1', name: 'SaaS (Программное Обеспечение)', category: 'Продукт', icon: ICONS.Cube, key: 'SaaS', snippet: 'Разработка и предоставление ПО по подписке (SaaS/IaaS). Приоритет: R&D, безопасность, масштабируемость.' },
+                { id: 'P2', name: 'Физические Товары / E-commerce', category: 'Продукт', icon: ICONS.Cube, key: 'Goods', snippet: 'Продажа материальных товаров (FMCG, свой бренд, дистрибуция). Приоритет: Логистика, управление запасами, качество.' },
+                { id: 'P3', name: 'Профессиональные Услуги (Консалтинг)', category: 'Продукт', icon: ICONS.Cube, key: 'Services', snippet: 'Экспертные знания и навыки (консалтинг, аудит, обучение). Приоритет: Качество персонала, репутация, часы работы.' },
+                { id: 'P4', name: 'Торговая Площадка / Marketplace', category: 'Продукт', icon: ICONS.Cube, key: 'Marketplace', snippet: 'Платформа, соединяющая продавцов и покупателей, не владея запасами. Приоритет: Обеспечение баланса спроса и предложения.' },
+                { id: 'P5', name: 'Лицензирование Данных / API', category: 'Продукт', icon: ICONS.Cube, key: 'Data', snippet: 'Монетизация уникальных или агрегированных данных через API или прямую продажу лицензий. Приоритет: Источники данных, конфиденциальность, актуальность.' }
             ],
             'audience': [
-                { id: 'A1', name: 'B2B (Бизнес для Бизнеса)', category: 'Аудитория', icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1M9 11h1M9 15h1M14 7h1M14 11h1M14 15h1m-14 4h14"/></svg>', snippet: 'Ваша целевая аудитория — другие предприятия и организации (B2B), которым требуются решения для оптимизации их операционной деятельности или развития.' },
-                { id: 'A2', name: 'B2C (Бизнес для Потребителя)', category: 'Аудитория', icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h-4m-7 0H5a2 2 0 01-2-2V5a2 2 0 012-2h3m10 0h2a2 2 0 012 2v13a2 2 0 01-2 2h-3m-7 0v-6a2 2 0 012-2h2a2 2 0 012 2v6m-4 0V9a2 2 0 012-2h2a2 2 0 012 2v11"/></svg>', snippet: 'Вы ориентированы на массового конечного потребителя (B2C). Ваши продукты или услуги нацелены на удовлетворение личных потребностей, желаний или решение повседневных задач.' },
-                { id: 'A3', name: 'Узкоспециализированная Ниша', category: 'Аудитория', icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0zM10 10V8.5a1.5 1.5 0 113 0V10m-3-1l3 3m-3-3l-3 3M12 12V6m2 0V12m0 0l-2 2m2-2l-2-2m-2 2l-2-2m-2 2l2 2m0 0l2 2m-2-2l2-2M12 18H6a1 1 0 01-1-1v-2a1 1 0 011-1h6a1 1 0 011 1v2a1 1 0 01-1 1z"/></svg>', snippet: 'Ваша аудитория — это высокоспециализированная ниша профессионалов или энтузиастов с очень специфическими и глубокими потребностями, что требует экспертного подхода.' }
+                { id: 'A1', name: 'B2B (Enterprise)', category: 'Аудитория', icon: ICONS.Users, key: 'B2B', snippet: 'Крупные корпоративные клиенты со сложным процессом покупки и высокими требованиями к надежности и интеграции.' },
+                { id: 'A2', name: 'B2C (Массовый Сегмент)', category: 'Аудитория', icon: ICONS.Users, key: 'B2C_Mass', snippet: 'Широкая аудитория, ориентированная на удобство и цену. Требуется массовое масштабирование маркетинга.' },
+                { id: 'A3', name: 'Узкоспециализированная Ниша (Hobby/Pro)', category: 'Аудитория', icon: ICONS.Users, key: 'Niche', snippet: 'Профессионалы или энтузиасты с очень специфическими потребностями. Высокая готовность платить, низкий объем рынка.' },
+                { id: 'A4', name: 'Глобальный Рынок с Локализацией', category: 'Аудитория', icon: ICONS.Users, key: 'Global', snippet: 'Бизнес, потенциально работающий во многих странах, требующий адаптации продукта и маркетинга под местные особенности.' }
             ],
             'monetization': [
-                { id: 'M1', name: 'Подписочная Модель (Recurring Revenue)', category: 'Монетизация', icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1L21 12H3l.397-1C6.08 8.402 7.05 8 12 8z"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>', snippet: 'Основной источник дохода — регулярные платежи по подписке, что обеспечивает стабильный и предсказуемый денежный поток.' },
-                { id: 'M2', name: 'Единовременная Продажа (Transactional)', category: 'Монетизация', icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>', snippet: 'Вы генерируете доход за счет однократных продаж продуктов или услуг. Это требует постоянного привлечения новых клиентов.' },
-                { id: 'M3', name: 'Рекламная/Freemium Модель', category: 'Монетизация', icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>', snippet: 'Доход формируется либо за счет показа рекламы пользователям, либо путем предложения бесплатных базовых функций с платными премиум-опциями (Freemium).' }
+                { id: 'M1', name: 'Подписка (Recurring Revenue)', category: 'Монетизация', icon: ICONS.Currency, key: 'Subscription', snippet: 'Регулярные, предсказуемые платежи (ежемесячно/ежегодно). Обеспечивает стабильность и LTV.' },
+                { id: 'M2', name: 'Единовременная Продажа (Transactional)', category: 'Монетизация', icon: ICONS.Currency, key: 'OneTime', snippet: 'Доход формируется за счет однократных покупок. Фокус на постоянном притоке новых клиентов.' },
+                { id: 'M3', name: 'Комиссия за Транзакцию (Fee)', category: 'Монетизация', icon: ICONS.Currency, key: 'Fee', snippet: 'Платформа взимает процент или фиксированную сумму за каждую успешную транзакцию между сторонами (Маркетплейсы, платежи).' },
+                { id: 'M4', name: 'Freemium / Реклама (Hybrid)', category: 'Монетизация', icon: ICONS.Currency, key: 'Freemium', snippet: 'Смешанная модель: бесплатный базовый продукт + доход от рекламы ИЛИ от апгрейда до премиум-версии.' }
             ],
             'marketing': [
-                { id: 'K1', name: 'Контент-Маркетинг и SEO', category: 'Маркетинг', icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>', snippet: 'Привлечение клиентов осуществляется через создание ценного, оптимизированного контента (блоги, статьи, видео) и повышение видимости в поисковых системах (SEO).' },
-                { id: 'K2', name: 'Платная Реклама (PPC, SMM)', category: 'Маркетинг', icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8.228 9.247a1 1 0 01.75-.972 10.003 10.003 0 00-4.502-4.502 1 1 0 01-.972.75 12.003 12.003 0 00-1.637 1.637l.797.797.797.797a1 1 0 010 1.414l-.707.707a1 1 0 01-1.414 0l-.707-.707a1 1 0 00-1.414 0l-.707.707-.797.797a12.003 12.003 0 001.637 1.637 1 1 0 01.75-.972 10.003 10.003 0 004.502-4.502 1 1 0 01.972.75zM12 21a9 9 0 100-18 9 9 0 000 18z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 15l-3 3m0 0l-3-3m3 3V9"/></svg>', snippet: 'Основной канал привлечения клиентов — платная реклама в поисковых системах (PPC), социальных сетях (SMM) или медийных сетях, требующая выделенного бюджета.' },
-                { id: 'K3', name: 'Партнерства и Реферальные Программы', category: 'Маркетинг', icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>', snippet: 'Рост бизнеса достигается за счет стратегических партнерств, сотрудничества с инфлюенсерами и развития реферальных программ, стимулирующих рекомендации.' }
+                { id: 'K1', name: 'Контент и SEO (Inbound)', category: 'Маркетинг', icon: ICONS.Megaphone, key: 'Content', snippet: 'Привлечение клиентов через создание ценного контента, который сам выводит клиентов на вас.' },
+                { id: 'K2', name: 'Платная Реклама (Outbound / PPC)', category: 'Маркетинг', icon: ICONS.Megaphone, key: 'PPC', snippet: 'Покупка трафика (Google, Meta, и т.д.). Требует высокого показателя LTV/CAC.' },
+                { id: 'K3', name: 'Партнерства и Реферальные Программы', category: 'Маркетинг', icon: ICONS.Megaphone, key: 'Referrals', snippet: 'Рост за счет сильных связей, аффилиатов и стимулирования существующих клиентов рекомендовать продукт.' },
+                { id: 'K4', name: 'Построение Сообщества (Community)', category: 'Маркетинг', icon: ICONS.Megaphone, key: 'Community', snippet: 'Фокус на создании лояльного сообщества пользователей, которое становится основным источником роста и фидбэка.' }
+            ],
+            'resources': [
+                { id: 'R1', name: 'Высокие R&D / Сложная ИС (IP)', category: 'Ресурсы/Операции', icon: ICONS.Cog, key: 'HighRD', snippet: 'Ваш бизнес требует постоянных инвестиций в научные исследования, патенты или сложную техническую базу.' },
+                { id: 'R2', name: 'Операционная Эффективность / Логистика', category: 'Ресурсы/Операции', icon: ICONS.Cog, key: 'Efficiency', snippet: 'Ключевое конкурентное преимущество — низкая себестоимость, оптимизированная цепочка поставок или сверхбыстрая логистика.' },
+                { id: 'R3', name: 'Сетевой Эффект / Критическая Масса', category: 'Ресурсы/Операции', icon: ICONS.Cog, key: 'Network', snippet: 'Ценность продукта растет экспоненциально с каждым новым пользователем (социальные сети, платформы, маркетплейсы).' },
+                { id: 'R4', name: 'Репутация и Личные Связи', category: 'Ресурсы/Операции', icon: ICONS.Cog, key: 'Reputation', snippet: 'Доверие, бренд и личные контакты в отрасли являются незаменимым активом.' }
             ]
         };
 
@@ -134,7 +177,7 @@
         const dropPlaceholder = document.getElementById('drop-placeholder');
         const resetButton = document.getElementById('reset-button');
         
-        let selected = {}; // Хранит выбранные компоненты по категории: { product: 'P1', audience: 'A2', ... }
+        let selected = {}; 
 
         // --- Вспомогательные функции ---
 
@@ -148,26 +191,23 @@
 
         function createComponentCard(component, isDraggable = true) {
             const card = document.createElement('div');
-            card.className = `component-card p-3 rounded-lg flex items-center shadow-sm border border-gray-200 ${isDraggable ? 'bg-white hover:bg-gray-50' : 'bg-blue-50 border-blue-200'}`;
+            card.className = `component-card p-3 rounded-lg flex items-center shadow-md border border-gray-200 ${isDraggable ? 'bg-white hover:bg-gray-50' : 'bg-emerald-50 border-emerald-300'}`;
             card.setAttribute('data-component-id', component.id);
-            card.setAttribute('data-category', component.category.toLowerCase().split(' ')[0]); // Используем ключ категории
+            card.setAttribute('data-category-key', component.category.toLowerCase().split('/')[0]); // Используем ключ категории
             card.draggable = isDraggable;
 
-            // Иконка
             const iconWrapper = document.createElement('span');
-            iconWrapper.className = 'component-icon w-7 h-7 flex-shrink-0 mr-3 text-blue-600';
-            iconWrapper.innerHTML = component.icon; // Вставляем SVG
+            iconWrapper.className = 'component-icon w-7 h-7 flex-shrink-0 mr-3 text-emerald-600';
+            iconWrapper.innerHTML = component.icon;
 
-            // Текст
             const text = document.createElement('div');
-            text.className = 'flex-grow';
-            text.innerHTML = `<p class="font-semibold text-gray-800">${component.name}</p><p class="text-xs text-gray-500">${component.category}</p>`;
+            text.className = 'flex-grow min-w-0';
+            text.innerHTML = `<p class="font-semibold text-gray-800 truncate">${component.name}</p><p class="text-xs text-gray-500">${component.category}</p>`;
 
             card.appendChild(iconWrapper);
             card.appendChild(text);
 
             if (!isDraggable) {
-                // Добавить кнопку удаления для выбранных компонентов
                 const removeBtn = document.createElement('button');
                 removeBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500 hover:text-red-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>`;
                 removeBtn.className = 'ml-3 flex-shrink-0 opacity-80 hover:opacity-100 transition-opacity';
@@ -181,14 +221,14 @@
             return card;
         }
         
-        // --- Логика Генерации Описания ---
+        // --- Логика Генерации Описания и Неочевидных Выводов (САМОЕ ВАЖНОЕ) ---
 
         function generateDescription() {
             const selectedIds = Object.values(selected);
             dropPlaceholder.classList.toggle('hidden', selectedIds.length > 0);
 
-            if (selectedIds.length === 0) {
-                descriptionOutput.innerHTML = `<p class="text-gray-500">Здесь будет представлено описание вашего бизнеса на основе выбранных компонентов.</p>`;
+            if (selectedIds.length < 3) {
+                descriptionOutput.innerHTML = `<p class="text-gray-500">Пожалуйста, выберите минимум 3 компонента (желательно по одному из каждой категории), чтобы начать детальный стратегический анализ.</p>`;
                 dropZone.classList.add('flex', 'flex-col', 'items-center', 'justify-center');
                 return;
             }
@@ -196,61 +236,118 @@
             dropZone.classList.remove('flex', 'flex-col', 'items-center', 'justify-center');
 
             const selectedData = selectedIds.map(id => getComponentData(id));
+            const selectedKeys = {};
+            selectedData.forEach(d => {
+                selectedKeys[d.category.toLowerCase().split('/')[0]] = d.key;
+            });
+            
+            // Собираем базовое описание
+            let descriptionHTML = '<h3 class="text-2xl font-bold text-gray-800 mb-4 border-b pb-2">Обзор Выбранной Модели</h3>';
+            
+            descriptionHTML += '<ul class="list-disc list-inside space-y-2 mb-8">';
+            selectedData.forEach(d => {
+                descriptionHTML += `<li><strong class="font-semibold">${d.category}: ${d.name}</strong>. ${d.snippet}</li>`;
+            });
+            descriptionHTML += '</ul>';
 
-            // Собираем описание по категориям
-            const product = selectedData.find(c => c.category === 'Продукт');
-            const audience = selectedData.find(c => c.category === 'Аудитория');
-            const monetization = selectedData.find(c => c.category === 'Монетизация');
-            const marketing = selectedData.find(c => c.category === 'Маркетинг');
+            // --- БЛОК НЕОЧЕВИДНЫХ СТРАТЕГИЧЕСКИХ ВЫВОДОВ ---
+            
+            const insights = [];
 
-            let description = '<h3 class="text-xl font-semibold text-gray-800 mb-3">Детальный обзор вашей бизнес-модели:</h3>';
-            description += '<p class="mt-4 text-gray-700 leading-relaxed">';
-
-            // 1. Продукт и Аудитория
-            if (product && audience) {
-                description += `Ваш бизнес ориентирован на предоставление <strong>${product.name}</strong>. ${product.snippet} В качестве основной целевой аудитории выбраны ${audience.name}. ${audience.snippet}`;
-            } else if (product) {
-                description += `${product.snippet} `;
-            } else if (audience) {
-                description += `${audience.snippet} `;
-            } else {
-                description += 'Пожалуйста, выберите хотя бы один компонент, чтобы увидеть подробный анализ.';
+            // 1. Риск для Модели Маркетплейса / Сетевого Эффекта
+            if (selectedKeys.product === 'Marketplace' && selectedKeys.resources === 'Network') {
+                insights.push({
+                    title: 'Вывод: Фокус на Критической Массе',
+                    text: `Вы выбрали модель Торговой Площадки, зависимую от Сетевого Эффекта. **Неочевидный риск**: на этапе запуска вы будете сталкиваться с проблемой "пустого рынка". Вам придется субсидировать либо спрос, либо предложение (или оба) для достижения критической массы. Доход (M3/M4) начнется только после того, как платформа станет незаменимой для обеих сторон. Ваш главный KPI — не доход, а **плотность транзакций**.`,
+                    class: 'border-blue-500'
+                });
             }
 
-            // 2. Монетизация
-            if (monetization) {
-                description += `<br><br><strong>Стратегия монетизации:</strong> Выбрана модель <strong>${monetization.name}</strong>. ${monetization.snippet}`;
+            // 2. SaaS + B2B + P2P (Платная Реклама)
+            if (selectedKeys.product === 'SaaS' && selectedKeys.audience === 'B2B' && selectedKeys.marketing === 'PPC') {
+                insights.push({
+                    title: 'Вывод: Высокие Требования к LTV/CAC',
+                    text: `Сочетание B2B SaaS и Платной Рекламы (PPC) указывает на то, что ваши **затраты на привлечение клиента (CAC) будут очень высокими**. Чтобы эта модель работала, необходимо обеспечить чрезвычайно высокий **Lifetime Value (LTV)** клиента. Ваш отдел продаж должен быть максимально эффективным, чтобы конвертировать дорогие лиды, а продукт — минимизировать отток.`,
+                    class: 'border-yellow-500'
+                });
             }
 
-            // 3. Маркетинг
-            if (marketing) {
-                description += `<br><br><strong>Ключевая маркетинговая стратегия:</strong> Основной подход к привлечению клиентов будет заключаться в <strong>${marketing.name}</strong>. ${marketing.snippet}`;
+            // 3. Низкая Маржа (Goods/Efficiency) + Ниша + Контент
+            if ((selectedKeys.product === 'Goods' || selectedKeys.resources === 'Efficiency') && selectedKeys.audience === 'Niche' && selectedKeys.marketing === 'Content') {
+                insights.push({
+                    title: 'Вывод: Создание Долгосрочного Капитала Бренда',
+                    text: `Ваша модель (скорее всего, с низкой маржой) ориентирована на узкую нишу и опирается на Контент-маркетинг. **Неочевидный плюс**: со временем вы создадите чрезвычайно лояльный и экспертный бренд в этой нише. Это обеспечит вам сильную защиту от ценовой конкуренции, которую не может предоставить чистая Операционная Эффективность.`,
+                    class: 'border-green-500'
+                });
             }
 
-            description += '</p>';
+            // 4. Услуги + Репутация (Services + Reputation)
+            if (selectedKeys.product === 'Services' && selectedKeys.resources === 'Reputation') {
+                insights.push({
+                    title: 'Вывод: Ограничения Масштабирования',
+                    text: `Ваш продукт (Услуги) и ресурс (Репутация/Личные связи) сильно привязаны к конкретным людям. **Неочевидный вывод**: масштабирование будет затруднено. Для роста вам необходимо стандартизировать процессы, создать четкие методологии и обучить персонал, чтобы репутация перешла от личности к **бренду компании**.`,
+                    class: 'border-red-500'
+                });
+            }
 
-            descriptionOutput.innerHTML = description;
+            // 5. Data/IP + Licensing/High R&D
+             if (selectedKeys.product === 'Data' || selectedKeys.monetization === 'Licensing' || selectedKeys.resources === 'HighRD') {
+                insights.push({
+                    title: 'Вывод: Необходимость Правовой Защиты',
+                    text: `Поскольку ваша модель построена вокруг Сложной Интеллектуальной Собственности (ИС), **юридическая защита является операционным, а не просто второстепенным расходом**. Неочевидно, но вам понадобится не только сильный R&D, но и постоянный юридический аудит, чтобы обеспечить защиту уникальности данных или технологии, иначе ваша бизнес-модель легко рухнет под натиском конкурентов.`,
+                    class: 'border-indigo-500'
+                });
+            }
+
+            // Если есть выводы, добавляем их в HTML
+            if (insights.length > 0) {
+                descriptionHTML += '<h3 class="text-2xl font-bold text-gray-800 mb-4 pt-6 mt-6 border-t">Неочевидные Стратегические Выводы</h3>';
+                descriptionHTML += '<div class="space-y-4">';
+                insights.forEach(insight => {
+                    descriptionHTML += `
+                        <div class="insight-box p-4 rounded-lg shadow-sm ${insight.class}">
+                            <p class="font-bold text-gray-900 mb-1 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-current" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                ${insight.title}
+                            </p>
+                            <p class="text-gray-700">${insight.text}</p>
+                        </div>
+                    `;
+                });
+                descriptionHTML += '</div>';
+            }
+
+            descriptionOutput.innerHTML = descriptionHTML;
         }
 
         function renderComponentList() {
             componentList.innerHTML = '';
-            for (const categoryKey in COMPONENTS) {
-                const categoryName = COMPONENTS[categoryKey][0].category; // Получаем имя категории из первого элемента
+            // Порядок категорий важен для отображения
+            const categoryOrder = ['product', 'audience', 'monetization', 'marketing', 'resources'];
+            
+            categoryOrder.forEach(categoryKey => {
+                const components = COMPONENTS[categoryKey];
+                if (!components || components.length === 0) return;
+
+                const categoryName = components[0].category;
                 
                 const header = document.createElement('h3');
-                header.className = 'text-lg font-bold mt-5 mb-2 text-blue-700 border-b border-blue-100 pb-1 font-heading';
+                header.className = 'text-lg font-bold mt-5 mb-2 category-header border-b border-emerald-100 pb-1 font-heading';
                 header.textContent = categoryName;
                 componentList.appendChild(header);
 
-                COMPONENTS[categoryKey].forEach(component => {
-                    const isSelected = Object.values(selected).includes(component.id);
+                components.forEach(component => {
+                    const selectedCategoryKey = component.category.toLowerCase().split('/')[0];
+                    const isSelected = selected[selectedCategoryKey] === component.id;
                     const card = createComponentCard(component, !isSelected);
                     if (isSelected) {
-                        card.classList.add('opacity-60', 'grayscale', 'cursor-not-allowed', 'pointer-events-none');
+                        card.classList.add('opacity-50', 'grayscale', 'cursor-not-allowed', 'pointer-events-none');
                     }
                     componentList.appendChild(card);
                 });
-            }
+            });
             renderSelectedComponents();
         }
 
@@ -259,18 +356,18 @@
             const selectedIds = Object.values(selected);
 
             if (selectedIds.length === 0) {
-                dropZone.classList.add('border-blue-200');
+                dropZone.classList.add('border-emerald-300');
                 dropPlaceholder.classList.remove('hidden');
                 return;
             }
 
-            dropZone.classList.remove('border-blue-200');
+            dropZone.classList.remove('border-emerald-300');
             dropPlaceholder.classList.add('hidden');
 
             selectedIds.forEach(id => {
                 const data = getComponentData(id);
                 if (data) {
-                    const card = createComponentCard(data, false); // false = неперетаскиваемый, но с кнопкой удаления
+                    const card = createComponentCard(data, false);
                     selectedComponentsContainer.appendChild(card);
                 }
             });
@@ -281,7 +378,7 @@
             const data = getComponentData(id);
             if (!data) return;
 
-            const categoryKey = data.category.toLowerCase().split(' ')[0]; // 'Продукт' -> 'product'
+            const categoryKey = data.category.toLowerCase().split('/')[0];
             selected[categoryKey] = id;
             
             renderComponentList();
@@ -291,7 +388,7 @@
             const data = getComponentData(id);
             if (!data) return;
 
-            const categoryKey = data.category.toLowerCase().split(' ')[0];
+            const categoryKey = data.category.toLowerCase().split('/')[0];
             delete selected[categoryKey];
 
             renderComponentList();
@@ -346,7 +443,7 @@
             
             resetButton.addEventListener('click', resetSelection);
 
-            console.log("Конструктор Бизнес-Моделей инициализирован.");
+            console.log("Конструктор Бизнес-Моделей (Расширенный Анализ) инициализирован.");
         };
 
     </script>
