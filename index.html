@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Конструктор Бизнес-Моделей</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    .drag-over {
+      border: 3px dashed #1e3a8a;
+      background-color: #f8fafc;
+    }
+    .component-card {
+      cursor: grab;
+      transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+    }
+    .component-card:active {
+      cursor: grabbing;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      transform: scale(1.05);
+      z-index: 10;
+    }
+  </style>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            primary: {
+              DEFAULT: '#1e3a8a',
+              light: '#3b82f6',
+            },
+          },
+        },
+      },
+    };
+  </script>
+</head>
+<body class="bg-gray-100 min-h-screen font-sans p-6">
+
+  <div class="max-w-7xl mx-auto">
+    <header class="text-center mb-10">
+      <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight">
+        Конструктор Бизнес-Моделей
+      </h1>
+      <p class="text-lg text-gray-600 mt-3">
+        Интерактивный инструмент для проектирования бизнес-моделей по принципу Drag & Drop.
+      </p>
+    </header>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      
+      <!-- Панель компонентов -->
+      <aside class="lg:col-span-1 bg-white p-6 rounded-xl shadow-lg">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+          <i data-lucide="grid" class="w-6 h-6 text-primary mr-2"></i>
+          Доступные Компоненты
+        </h2>
+        <div id="component-list" class="space-y-4"></div>
+      </aside>
+
+      <!-- Основная зона -->
+      <main class="lg:col-span-2 space-y-8">
+        
+        <!-- Зона перетаскивания -->
+        <section id="drop-zone" class="bg-white border-2 border-dashed border-gray-300 p-8 min-h-[250px] rounded-xl flex flex-col items-center justify-center transition-all text-gray-500">
+          <p id="drop-placeholder" class="text-center">Перетащите сюда компоненты, чтобы построить свой бизнес.</p>
+          <div id="selected-components" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-4 w-full"></div>
+        </section>
+
+        <!-- Описание -->
+        <section class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-primary">
+          <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+            <i data-lucide="file-text" class="w-6 h-6 text-primary mr-2"></i>
+            Описание Бизнес-Модели
+          </h2>
+          <div id="business-description" class="text-gray-700 leading-relaxed text-lg italic">
+            <p class="text-gray-500">
+              Описание появится здесь после выбора компонентов.
+            </p>
+          </div>
+          <button id="reset-button" class="mt-6 w-full py-2 px-4 bg-red-600 text-white font-semibold rounded-lg shadow-md hover:bg-red-700 transition">
+            Очистить Выбор
+          </button>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <script>
+    const COMPONENTS = {
+      product: [
+        { id: 'P1', name: 'SaaS (ПО по подписке)', category: 'Продукт', icon: 'laptop', snippet: 'Ваш бизнес основан на предоставлении программного обеспечения как услуги (SaaS).' },
+        { id: 'P2', name: 'Физические товары (E-commerce)', category: 'Продукт', icon: 'package', snippet: 'Вы продаёте физические товары через онлайн-магазин.' },
+        { id: 'P3', name: 'Профессиональные услуги (Консалтинг)', category: 'Продукт', icon: 'briefcase', snippet: 'Вы предлагаете экспертные консультации, обучение или специализированные услуги.' }
+      ],
+      audience: [
+        { id: 'A1', name: 'Бизнес-клиенты (B2B)', category: 'Аудитория', icon: 'building', snippet: 'Целевая аудитория — компании, нуждающиеся в оптимизации процессов.' },
+        { id: 'A2', name: 'Частные клиенты (B2C)', category: 'Аудитория', icon: 'users', snippet: 'Вы работаете с широкой аудиторией конечных пользователей.' },
+        { id: 'A3', name: 'Профессиональные ниши', category: 'Аудитория', icon: 'target', snippet: 'Вы ориентируетесь на узкий сегмент профессионалов с чёткими запросами.' }
+      ],
+      monetization: [
+        { id: 'M1', name: 'Подписка', category: 'Монетизация', icon: 'repeat', snippet: 'Регулярные платежи обеспечивают стабильный денежный поток.' },
+        { id: 'M2', name: 'Разовая продажа', category: 'Монетизация', icon: 'credit-card', snippet: 'Основной доход формируется от единичных продаж.' },
+        { id: 'M3', name: 'Рекламная модель', category: 'Монетизация', icon: 'monitor-play', snippet: 'Доход поступает от рекламы или платных функций в бесплатном продукте.' }
+      ],
+      marketing: [
+        { id: 'K1', name: 'Контент-маркетинг (SEO)', category: 'Маркетинг', icon: 'pen-tool', snippet: 'Вы привлекаете клиентов через экспертный контент и SEO.' },
+        { id: 'K2', name: 'Платная реклама (PPC)', category: 'Маркетинг', icon: 'megaphone', snippet: 'Основной канал привлечения — платные рекламные кампании.' },
+        { id: 'K3', name: 'Партнёрства и рекомендации', category: 'Маркетинг', icon: 'handshake', snippet: 'Рост происходит через партнёрства и сарафанное радио.' }
+      ]
+    };
+
+    const dropZone = document.getElementById('drop-zone');
+    const componentList = document.getElementById('component-list');
+    const selectedComponentsContainer = document.getElementById('selected-components');
+    const descriptionOutput = document.getElementById('business-description');
+    const dropPlaceholder = document.getElementById('drop-placeholder');
+    const resetButton = document.getElementById('reset-button');
+    let selected = {};
+
+    function getComponentData(id) {
+      for (const group in COMPONENTS) {
+        const comp = COMPONENTS[group].find(c => c.id === id);
+        if (comp) return comp;
+      }
+      return null;
+    }
+
+    function createIcon(name, size = 22, color = '#1e3a8a') {
+      const svg = lucide.createIcon(name);
+      const el = document.createElement('span');
+      el.innerHTML = svg;
+      el.querySelector('svg').setAttribute('width', size);
+      el.querySelector('svg').setAttribute('height', size);
+      el.querySelector('svg').setAttribute('stroke', color);
+      el.querySelector('svg').classList.add('mr-3');
+      return el;
+    }
+
+    function createComponentCard(component, draggable = true) {
+      const card = document.createElement('div');
+      card.className = `component-card p-3 rounded-lg flex items-center border border-gray-200 ${draggable ? 'bg-gray-50 hover:bg-gray-100' : 'bg-primary/5'}`;
+      card.setAttribute('data-component-id', component.id);
+      card.draggable = draggable;
+
+      const icon = createIcon(component.icon);
+      const text = document.createElement('div');
+      text.innerHTML = `<p class="font-semibold text-gray-800">${component.name}</p><p class="text-xs text-gray-500">${component.category}</p>`;
+
+      card.append(icon, text);
+
+      if (!draggable) {
+        const removeBtn = document.createElement('button');
+        removeBtn.innerHTML = lucide.createIcon('x').outerHTML;
+        removeBtn.className = 'ml-auto text-red-600 hover:text-red-800';
+        removeBtn.onclick = (e) => {
+          e.stopPropagation();
+          removeComponent(component.id);
+        };
+        card.appendChild(removeBtn);
+      }
+
+      return card;
+    }
+
+    function renderComponentList() {
+      componentList.innerHTML = '';
+      for (const cat in COMPONENTS) {
+        const header = document.createElement('h3');
+        header.className = 'text-lg font-semibold mt-6 mb-3 text-primary border-b pb-1 border-gray-200';
+        header.textContent = COMPONENTS[cat][0].category;
+        componentList.appendChild(header);
+
+        COMPONENTS[cat].forEach(c => {
+          const selectedIds = Object.values(selected);
+          const card = createComponentCard(c, !selectedIds.includes(c.id));
+          if (selectedIds.includes(c.id)) {
+            card.classList.add('opacity-50', 'cursor-not-allowed');
+          }
+          componentList.appendChild(card);
+        });
+      }
+      renderSelected();
+    }
+
+    function renderSelected() {
+      selectedComponentsContainer.innerHTML = '';
+      const ids = Object.values(selected);
+      if (ids.length === 0) {
+        dropPlaceholder.classList.remove('hidden');
+        descriptionOutput.innerHTML = '<p class="text-gray-500">Описание появится здесь после выбора компонентов.</p>';
+        return;
+      }
+      dropPlaceholder.classList.add('hidden');
+      ids.forEach(id => {
+        const data = getComponentData(id);
+        if (data) selectedComponentsContainer.appendChild(createComponentCard(data, false));
+      });
+      generateDescription();
+    }
+
+    function selectComponent(id) {
+      const data = getComponentData(id);
+      if (!data) return;
+      const key = data.category.toLowerCase();
+      selected[key] = id;
+      renderComponentList();
+    }
+
+    function removeComponent(id) {
+      const data = getComponentData(id);
+      if (!data) return;
+      const key = data.category.toLowerCase();
+      delete selected[key];
+      renderComponentList();
+    }
+
+    function generateDescription() {
+      const s = Object.values(selected).map(getComponentData);
+      const product = s.find(x => x.category === 'Продукт');
+      const audience = s.find(x => x.category === 'Аудитория');
+      const monetization = s.find(x => x.category === 'Монетизация');
+      const marketing = s.find(x => x.category === 'Маркетинг');
+
+      let html = '<h3 class="font-semibold text-gray-800 text-xl mb-3">Ваша бизнес-модель:</h3><div class="space-y-3 text-gray-700">';
+      if (product && audience)
+        html += `<p>${product.snippet} ${audience.snippet}</p>`;
+      if (monetization)
+        html += `<p><strong>Монетизация:</strong> ${monetization.snippet}</p>`;
+      if (marketing)
+        html += `<p><strong>Маркетинг:</strong> ${marketing.snippet}</p>`;
+      html += '</div>';
+
+      descriptionOutput.innerHTML = html;
+    }
+
+    function resetSelection() {
+      selected = {};
+      renderComponentList();
+    }
+
+    // Drag events
+    componentList.addEventListener('dragstart', e => {
+      e.dataTransfer.setData('id', e.target.dataset.componentId);
+      e.target.classList.add('opacity-50');
+    });
+    componentList.addEventListener('dragend', e => e.target.classList.remove('opacity-50'));
+    dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+    dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+    dropZone.addEventListener('drop', e => {
+      e.preventDefault();
+      dropZone.classList.remove('drag-over');
+      const id = e.dataTransfer.getData('id');
+      if (id) selectComponent(id);
+    });
+    resetButton.onclick = resetSelection;
+
+    window.onload = () => {
+      lucide.createIcons();
+      renderComponentList();
+    };
+  </script>
+</body>
+</html>
